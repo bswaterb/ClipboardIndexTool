@@ -1,0 +1,11 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="ClipboardIndexUtil:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/ClipboardIndexUtil_jar</output-path>
+    <root id="archive" name="ClipboardIndexUtil.jar">
+      <element id="module-output" name="ClipboardIndexUtil" />
+      <element id="extracted-dir" path="$USER_HOME$/.m2/repository/com/google/protobuf/protobuf-java/3.6.1/protobuf-java-3.6.1.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$USER_HOME$/.m2/repository/mysql/mysql-connector-java/8.0.18/mysql-connector-java-8.0.18.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$USER_HOME$/.m2/repository/org/mybatis/mybatis/3.5.4/mybatis-3.5.4.jar" path-in-jar="/" />
+    </root>
+  </artifact>
+</component>

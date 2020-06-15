@@ -1,5 +1,6 @@
 # ClipboardIndexTool
 划词索引工具    A Simple Tool For Indexing By CTRL+C 
+
 ###项目说明
 这是一个基于监控当前系统剪切板的内容索引工具，你可以复制一些关键词，然后通过该程序将关该键词对应的内容查找出来。
 项目基于maven进行构建，目前仍处于初期开发阶段，如果你有好的意见，请提交你的Pull Request。

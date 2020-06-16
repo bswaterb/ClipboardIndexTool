@@ -1,8 +1,5 @@
 package po;
 
-/**
- * Created by chaohui on 2020/6/11
- */
 public class Exam {
     private String question;
     private String answer;

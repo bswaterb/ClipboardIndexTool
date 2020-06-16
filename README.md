@@ -30,13 +30,14 @@
 ### 结构说明
 
 src/main/java/util目录下有一个util2文件夹，里面的内容和util中的内容有些许不同
-（util2为目前的Code主函数服务，util1为正在开发中的GUI界面服务）
+
+（util2为目前的Code主函数服务，util为正在开发中的GUI界面服务）
 
 ### 开发进度
 
 Code.java可正常启动运行，使用前需部署对应mysql服务器，数据库框架使用mybatis
 
-GUI.java也可正常启动，使用方式和C大同小异，但目前无法实现类似Code.java的弹窗提醒形式，暂时不可用
+GUI.java也可正常启动，使用方式和Code.java大同小异，但目前无法实现类似Code.java的弹窗提醒形式，暂时不可用
 
 
 **项目组件参考：**

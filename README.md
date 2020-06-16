@@ -41,4 +41,7 @@ GUI.java也可正常启动，使用方式和Code.java大同小异，但目前无
 
 
 **项目组件参考：**
+
 [1.剪切板操作功能 ](https://blog.csdn.net/xietansheng/article/details/70478266 "1.剪切板操作功能 ")
+
+[2.弹窗提醒样式 ](https://www.cnblogs.com/hgxbo/p/5508384.html "2.弹窗提醒样式 ")

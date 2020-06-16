@@ -14,9 +14,6 @@ import java.awt.datatransfer.StringSelection;
 import java.awt.datatransfer.Transferable;
 import java.io.InputStream;
 
-/**
- * Created by chaohui on 2020/6/14
- */
 public class ClipboardListener{
     private static String answer;
     public static String Run() throws Exception{

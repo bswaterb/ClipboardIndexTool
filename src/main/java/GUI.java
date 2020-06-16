@@ -6,9 +6,6 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-/**
- * Created by chaohui on 2020/6/14
- */
 public class GUI {
 
     static JFrame gui;

@@ -4,7 +4,7 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="mapper.ExamMapper">
-    <!-- 根据 题干 查询 答案 -->
+    <!-- 根据 内容 查询 索引 -->
     <select id="selectAnswerByQuestion" parameterType="string" resultType="String">
         select answer from (TABLENAME) where question like #{question};
     </select>

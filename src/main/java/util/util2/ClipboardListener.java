@@ -12,9 +12,6 @@ import java.awt.datatransfer.StringSelection;
 import java.awt.datatransfer.Transferable;
 import java.io.InputStream;
 
-/**
- * Created by chaohui on 2020/6/14
- */
 public class ClipboardListener{
     public static void Run() throws Exception{
         //读取mybatis配置并创建工厂

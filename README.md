@@ -18,7 +18,7 @@
 
 4.运行Main.java（命令行运行或IDE内运行）
 
-5.程序在运行时会监控您的剪切板，当内容发生变化时会自动获取当前剪切板的内容进行索引，并将索引结果以弹窗的方式展示出来，弹窗的样式可在 /src/main/java/util/util2/WindowTip.java 中自由修改，需要有Java Swing的基础知识
+5.程序在运行时会监控您的剪切板，当内容发生变化时会自动获取当前剪切板的内容进行索引，并将索引结果以弹窗的方式展示出来，弹窗的样式可在 /src/main/java/util/WindowTip.java 中自由修改，需要有Java Swing的基础知识
 
 6.bug反馈：
 

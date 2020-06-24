@@ -2,60 +2,43 @@ package util;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
 
 /**
  * @author Administrator 此工具类用法：实例化出对象，调用 void show("标题","内容") 方法. InfoUtil tool
  *     = new InfoUtil(); tool.show("标题","内容")
  */
-public class WindowTip implements Runnable{
-    private String answer;
+public class WindowTip {
+
+    private float transparency = 0.5f;//透明度  0.5f表示窗口50%透明
+    private int width = 300 ,height = 180;//窗口大小
+    private int margin_bottom = 300;//弹窗出现位置相对于屏幕下方的距离
+    private int margin_right = 0;//弹窗出现位置相对于屏幕右方的距离
+    private int durationTime = 1500; //弹窗持续出现时间，单位ms
+
+
     private TipWindow tw = null; // 提示框
     private JPanel headPan = null;
     private JPanel feaPan = null;
     private JPanel btnPan = null;
-    private JLabel title = null; // 栏目名称
     private JLabel head = null; // 蓝色标题
-    private JLabel close = null; // 关闭按钮
     private JTextArea feature = null; // 内容
     private JScrollPane jfeaPan = null;
-    private JButton sure = null;
     private String titleT = null;
     private String word = null;
-    private Desktop desktop = null;
 
-
+    //初始化
     public void init() {
-// 新建300x180的消息提示框  
-        tw = new TipWindow(300, 300);
+        // 新建弹窗主体
+        tw = new TipWindow(width, height,transparency,margin_right,margin_bottom,durationTime);
         headPan = new JPanel(new FlowLayout(FlowLayout.CENTER, 0, 0));
         feaPan = new JPanel(new FlowLayout(FlowLayout.CENTER, 0, 0));
         btnPan = new JPanel(new FlowLayout(FlowLayout.CENTER, 0, 0));
-        title = new JLabel("欢迎使用本系统");
         head = new JLabel(titleT);
-        close = new JLabel(" x");
-        word = answer;
         feature = new JTextArea(word);
         jfeaPan = new JScrollPane(feature);
-        sure = new JButton("确认");
-        sure.setHorizontalAlignment(SwingConstants.CENTER);
-
-// 设置提示框的边框,宽度和颜色  
+        // 设置提示框的边框,宽度和颜色
         tw.getRootPane().setBorder(
                 BorderFactory.createMatteBorder(1, 1, 1, 1, Color.white));
-        title.setPreferredSize(new Dimension(200, 26));
-        title.setVerticalTextPosition(JLabel.CENTER);
-        title.setHorizontalTextPosition(JLabel.CENTER);
-        title.setFont(new Font("宋体", Font.PLAIN, 12));
-        title.setForeground(Color.white);
-
-        close.setFont(new Font("Arial", Font.BOLD, 15));
-        close.setPreferredSize(new Dimension(20, 20));
-        close.setVerticalTextPosition(JLabel.CENTER);
-        close.setHorizontalTextPosition(JLabel.CENTER);
-        close.setCursor(new Cursor(12));
-        close.setToolTipText("关闭");
 
         head.setPreferredSize(new Dimension(250, 35));
         head.setVerticalTextPosition(JLabel.CENTER);
@@ -67,78 +50,31 @@ public class WindowTip implements Runnable{
         feature.setForeground(Color.BLACK);
         feature.setFont(new Font("宋体", Font.PLAIN, 13));
         feature.setBackground(new Color(255, 255, 255));
-// 设置文本域自动换行  
+        // 设置文本域自动换行
         feature.setLineWrap(true);
 
         jfeaPan.setPreferredSize(new Dimension(260, 100));
         jfeaPan.setBorder(null);
         jfeaPan.setBackground(Color.black);
         tw.setBackground(Color.white);
-
-// 为了隐藏文本域，加个空的JLabel将他挤到下面去  
+        // 为了隐藏文本域，加个空的JLabel将他挤到下面去
         JLabel jsp = new JLabel();
         jsp.setPreferredSize(new Dimension(300, 15));
-
-        sure.setPreferredSize(new Dimension(60, 30));
-// 设置标签鼠标手形
-        sure.setCursor(new Cursor(12));
-// 设置button外观
-        sure.setContentAreaFilled(false);
-        sure.setBorder(BorderFactory.createRaisedBevelBorder());
-        sure.setBackground(Color.gray);
         headPan.add(head);
-
         feaPan.add(jsp);
         feaPan.add(jfeaPan);
-
-
         headPan.setBackground(new Color(255,255,255));
         feaPan.setBackground(Color.white);
         btnPan.setBackground(Color.white);
-
         tw.add(headPan, BorderLayout.NORTH);
         tw.add(feaPan, BorderLayout.CENTER);
         tw.add(btnPan, BorderLayout.SOUTH);
     }
 
-    public void handle() {
-// 为更新按钮增加相应的事件  
-        desktop = Desktop.getDesktop();
-        sure.addMouseListener(new MouseAdapter() {
-            public void mouseClicked(MouseEvent e) {
-                tw.close();
-            }
 
-            public void mouseEntered(MouseEvent e) {
-                sure.setBorder(BorderFactory.createLineBorder(Color.gray));
-            }
-
-            public void mouseExited(MouseEvent e) {
-                sure.setBorder(null);
-            }
-        });
-// 右上角关闭按钮事件  
-        close.addMouseListener(new MouseAdapter() {
-            public void mouseClicked(MouseEvent e) {
-                tw.close();
-            }
-
-            public void mouseEntered(MouseEvent e) {
-                close.setBorder(BorderFactory.createLineBorder(Color.gray));
-            }
-
-            public void mouseExited(MouseEvent e) {
-                close.setBorder(null);
-            }
-        });
-    }
-
-    public void show(String titleT, String word) {
-        this.titleT = titleT;
+    public void show(String word) {
         this.word = word;
-// time = sdf.format(new Date());  
         init();
-        handle();
         tw.setAlwaysOnTop(true);
         tw.setUndecorated(true);
         tw.setResizable(false);
@@ -149,15 +85,6 @@ public class WindowTip implements Runnable{
     public void close() {
         tw.close();
     }
-
-    @Override
-    public void run() {
-        show("",answer);
-
-    }
-    public WindowTip(String answer){
-        this.answer = answer;
-    }
 }
 
 class TipWindow extends JDialog {
@@ -165,42 +92,50 @@ class TipWindow extends JDialog {
     private static Dimension dim;
     private int x, y;
     private int width, height;
+    private float transparency;
+    private int margin_bottom;
+    private int margin_right;
+    private int durationTime;
     private static Insets screenInsets;
 
-    public TipWindow(int width, int height) {
+    public TipWindow(int width, int height,float transparency,int margin_right,int margin_bottom,int durationTime) {
         this.width = width;
         this.height = height;
+        this.transparency = transparency;
+        this.margin_bottom = margin_bottom;
+        this.margin_right = margin_right;
+        this.durationTime = durationTime;
+
+        //设置窗口透明度
+        this.setUndecorated(true);
+        this.setOpacity(transparency);
         dim = Toolkit.getDefaultToolkit().getScreenSize();
         screenInsets = Toolkit.getDefaultToolkit().getScreenInsets(
                 this.getGraphicsConfiguration());
-        x = (int) (dim.getWidth() - width - 3);
-        y = (int) (dim.getHeight() - screenInsets.bottom - 3);
+        x = (int) (dim.getWidth() - width - margin_right);
+        y = (int) (dim.getHeight() - screenInsets.bottom - margin_bottom);
+
         initComponents();
     }
 
     public void run() {
-        for (int i = 0; i <= height; i += 10) {
-            try {
-                this.setLocation(x, y-400);
-                Thread.sleep(50);
-            } catch (InterruptedException ex) {
-            }
-        }
-// 此处代码用来实现让消息提示框1秒后自动消失  
+        this.setLocation(x,y);
+        //让消息提示框定时消失
         try {
-            Thread.sleep(1000);
+            Thread.sleep(durationTime);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
         close();
     }
 
+    //初始化窗体
     private void initComponents() {
         this.setSize(width, height);
         this.setLocation(x, y);
         this.setBackground(Color.black);
     }
-
+    //关闭窗体
     public void close() {
         dispose();
     }

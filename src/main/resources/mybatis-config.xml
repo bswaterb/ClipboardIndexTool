@@ -8,10 +8,10 @@
         <environment id="development">
             <transactionManager type="JDBC"></transactionManager>
             <dataSource type="POOLED">
-                <property name="driver" value="com.mysql.cj.jdbc.Driver"/>
-                <property name="url" value=""/> <!-- Your DataBaseURL -->
-                <property name="username" value=""/><!-- Your ID -->
-                <property name="password" value=""/><!-- Your PassWord -->
+                <property name="driver" value="com.mysql.cj.jdbc.Driver"/> 
+                <property name="url" value=""/>  <!-- Your DataBaseURL -->
+                <property name="username" value=""/> <!-- Your ID -->
+                <property name="password" value=""/> <!-- Your PassWord-->
             </dataSource>
         </environment>
     </environments>

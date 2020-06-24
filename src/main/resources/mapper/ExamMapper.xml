@@ -6,7 +6,7 @@
 <mapper namespace="mapper.ExamMapper">
     <!-- 根据 题干 查询 答案 -->
     <select id="selectAnswerByQuestion" parameterType="string" resultType="String">
-        select answer from (TABLENAME) where question like #{question};
+        select answer from [TABLENAME] where question like #{question};
     </select>
 
 </mapper>

@@ -22,7 +22,7 @@
 
 6.bug反馈：
 
-提交Issues或fork本仓库进行修改后PL
+提交Issues或fork本仓库进行修改后PR
 
 * 建议
 

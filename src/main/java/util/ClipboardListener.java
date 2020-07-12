@@ -1,5 +1,6 @@
 package util;
 
+import com.mysql.cj.util.StringUtils;
 import org.apache.ibatis.io.Resources;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
@@ -11,9 +12,14 @@ import java.awt.datatransfer.DataFlavor;
 import java.awt.datatransfer.StringSelection;
 import java.awt.datatransfer.Transferable;
 import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 public class ClipboardListener {
     public static void Run() throws Exception {
+        String answer = null;
+        List<String> answerList = null;
         //读取mybatis配置并创建工厂
         InputStream config = Resources.getResourceAsStream("mybatis-config.xml");
         SqlSessionFactory factory = new SqlSessionFactoryBuilder().build(config);
@@ -24,16 +30,44 @@ public class ClipboardListener {
                 //如果剪切板中内容变化了
                 if (isContentChanged()) {
                     String text = getClipboardString();
-                    String answer;
                     //从数据库中查找内容
-                    if ((answer = sqlSession.selectOne("mapper.ExamMapper.selectAnswerByQuestion", '%' + text + '%')) == null) {
-                        answer = "查询无果";
+                    //尝试给text加入通配符
+                    String[] list = text.split("");
+                    String[] list2 = new String[list.length*2+1];
+                    for(int i=0,j=0;i<list.length*2;i+=2){
+                        list2[i]="%";
+                        list2[i+1]=list[j];
+                        j++;
                     }
-                    //输出复制的内容和查找到的内容
-                    System.out.println("Your Copy:" + text);
-                    System.out.println("Copy Index Result:" + answer);
-                    WindowTip test = new WindowTip();
-                    test.show(answer);
+                    list2[list2.length-1] = "%";
+                    StringBuffer stringBuffer = new StringBuffer();
+                    for(int i = 0; i < list2.length; i++){
+                        stringBuffer. append(list2[i]);
+                    }
+                    String text2 = stringBuffer.toString();
+                    //可查找多个结果
+                    try{
+                        if((answer = sqlSession.selectOne("mapper.ExamMapper.selectAnswerByQuestion",  text2 )) == null) {
+                            answer = "查询无果";
+                        }
+
+                        //输出复制的内容和查找到的内容
+                        System.out.println("Your Copy:" + text);
+                        System.out.println("Copy Index Result:" + answer);
+                        if(!answer.equals("查询无果")){
+                            setSysClipboardText(answer);
+                        }
+                        WindowTip test = new WindowTip();
+                        if(answer.length()>255){
+                            test.show("结果过长，请直接粘贴");
+                        }else{
+                            test.show(answer);
+                        }
+                        answer = null;
+                    }catch (Exception e){
+                        e.printStackTrace();
+                        System.out.println("结果过多或查找错误");
+                    }
                 }
             } catch (InterruptedException e) {
                 e.printStackTrace();
@@ -58,21 +92,21 @@ public class ClipboardListener {
         Transferable trans = null;
         String text = "";
         try {
-            System.out.println("正在获取剪切板对象...");
             clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
         } catch (Exception e) {
-            System.out.println("获取剪切板对象异常");
+            System.out.println("获取剪切板对象异常，重试中...");
             setSysClipboardText("");
             return false;
         }
         try {
             trans = clipboard.getContents(null);
         } catch (Exception e) {
-            System.out.println("获取剪切板异常，重试中");
+            System.out.println("获取剪切板异常，重试中...");
+            return false;
         }
         if (trans != null) {
             //获取当前文本框
-            System.out.println("正在获取剪切板内容...");
+           // System.out.println("正在获取剪切板内容...");
             try {
                 text = (String) trans.getTransferData(DataFlavor.stringFlavor);
             } catch (Exception e) {

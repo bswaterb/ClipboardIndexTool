@@ -3,17 +3,14 @@ package util;
 import javax.swing.*;
 import java.awt.*;
 
-/**
- * @author Administrator 此工具类用法：实例化出对象，调用 void show("标题","内容") 方法. InfoUtil tool
- *     = new InfoUtil(); tool.show("标题","内容")
- */
+
 public class WindowTip {
 
     private float transparency = 0.5f;//透明度  0.5f表示窗口50%透明
     private int width = 300 ,height = 180;//窗口大小
     private int margin_bottom = 300;//弹窗出现位置相对于屏幕下方的距离
     private int margin_right = 0;//弹窗出现位置相对于屏幕右方的距离
-    private int durationTime = 1500; //弹窗持续出现时间，单位ms
+    private int durationTime = 2000; //弹窗持续出现时间，单位ms
 
 
     private TipWindow tw = null; // 提示框

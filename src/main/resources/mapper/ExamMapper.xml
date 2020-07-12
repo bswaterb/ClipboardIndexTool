@@ -4,9 +4,16 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="mapper.ExamMapper">
-    <!-- 根据 题干 查询 答案 -->
+    <!-- 根据 索引 查询 内容 -->
     <select id="selectAnswerByQuestion" parameterType="string" resultType="String">
-        select answer from [TABLENAME] where question like #{question};
+        select answer from item where question like #{question};
     </select>
+
+    <insert id="addQuestion" parameterType="po.Item">
+        insert into item values(#{question},#{answer})
+    </insert>
+    <update id="updateQuestion" parameterType="po.Item">
+        update item set answer = #{answer} where question=#{question}
+    </update>
 
 </mapper>
